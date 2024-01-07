@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="865.0" prefWidth="926.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.letalskadruzbapolet.ReservationController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="642.0" prefWidth="571.0">
+        <items>
+            <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="255.0" prefWidth="884.0">
+                <Label layoutX="10" layoutY="10" text="Podatki o potnikih" />
+                <ScrollPane fitToWidth="false" hbarPolicy="AS_NEEDED" layoutX="10" layoutY="30" pannable="true" prefHeight="219.0" prefWidth="872.0">
+                    <HBox fx:id="passengerDataContainer" spacing="10">
+                        <!-- Initial Passenger Form -->
+                        <GridPane hgap="10" maxWidth="1.7976931348623157E308" vgap="10">
+                            <TextField fx:id="nameField" promptText="Ime" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <TextField fx:id="surnameField" promptText="Priimek" GridPane.rowIndex="1" />
+                            <TextField fx:id="idNumberField" promptText="Št. osebnega dokumenta" GridPane.rowIndex="2" />
+                            <TextField fx:id="addressField" promptText="Naslov" GridPane.rowIndex="3" />
+                            <TextField fx:id="postalField" promptText="Pošta" GridPane.rowIndex="4" />
+                            <TextField fx:id="cityField" promptText="Mesto" GridPane.rowIndex="5" />
+                            <Button onAction="#addNewPassengerForm" text="Dodaj" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="1" />
+                            <columnConstraints>
+                                <ColumnConstraints />
+                                <ColumnConstraints />
+                                <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                            </rowConstraints>
+                        </GridPane>
+                    </HBox>
+                </ScrollPane>
+            </AnchorPane>
+            <VBox spacing="10">
+                <Label text="Search Flights" />
+                <HBox spacing="5" />
+                <HBox spacing="5">
+
+                </HBox>
+                <HBox spacing="5">
+
+                </HBox>
+                <GridPane prefHeight="129.0" prefWidth="884.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Odhod:" />
+                        <HBox spacing="5" GridPane.columnIndex="1">
+                            <ListView fx:id="departureCitiesList" prefHeight="100.0" prefWidth="150.0" />
+                            <Button onAction="#addDepartureCity" text="+" />
+                        </HBox>
+                        <Label text="Prihod:" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="destinationCity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Datum odhoda:" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="departureDateFrom" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="do" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="departureDateTo" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+
+                        <Label text="Datum prihoda:" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="returnDateFrom" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="do" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="returnDateTo" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                    </children>
+                </GridPane>
+            </VBox>
+        </items>
+    </SplitPane>
+    <SplitPane orientation="HORIZONTAL" prefHeight="200.0" prefWidth="571.0" />
+    <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+            <Button fx:id="save" mnemonicParsing="false" text="Shrani" />
+        </buttons>
+    </ButtonBar>
+</VBox>
