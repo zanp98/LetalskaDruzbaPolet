@@ -4,10 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import org.controlsfx.control.CheckComboBox;
+import org.controlsfx.control.spreadsheet.Grid;
 
 
 public class ReservationController {
@@ -26,8 +26,6 @@ public class ReservationController {
     @FXML
     private ListView<String> returnFlightsList;
     @FXML
-    private CheckComboBox<String> seatSelectionList;
-    @FXML
     private TextField selectedSeats;
     @FXML
     private ComboBox<String> foodSelection;
@@ -39,12 +37,54 @@ public class ReservationController {
     private DatePicker creditCardExpiryDate;
     @FXML
     private PasswordField securityCodeField;
+    @FXML
+    private CheckBox fixedDepartureDateCheckbox;
+    @FXML
+    private CheckBox fixedReturnDateCheckbox;
+    @FXML
+    private VBox preferencesContainer;
+    @FXML
+    private Label departureLabel, returnLabel;
+    @FXML
+    private CheckBox oneWayFlightCheckbox, returnFlightCheckbox;
 
     @FXML
     private void initialize() {
-        destinationCity.getItems().addAll("Benetke", "Trst", "Zagreb", "Dunaj");
-        departureCities.getItems().addAll("Sri Lanka", "Kanarski otoki", "Havaji", "New York");
-        seatSelectionList.getItems().addAll("1A", "1B", "1C", "2A", "2B", "2C", "3A", "3B", "3C");
+        fixedDepartureDateCheckbox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            departureDateTo.setVisible(!isSelected);
+        });
+
+        fixedReturnDateCheckbox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            returnDateTo.setVisible(!isSelected);
+        });
+
+        departureCities.getItems().addAll("Benetke", "Trst", "Zagreb", "Dunaj");
+        destinationCity.getItems().addAll("Sri Lanka", "Kanarski otoki", "Havaji", "New York");
+
+
+        createFirstPassengerForm();
+
+        oneWayFlightCheckbox.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            returnDateFrom.setVisible(!newVal);
+            returnDateTo.setVisible(!newVal);
+            returnLabel.setVisible(!newVal);
+            fixedReturnDateCheckbox.setVisible(!newVal);
+            fixedReturnDateCheckbox.setSelected(false);
+
+            if (!newVal) {
+                returnDateFrom.setValue(null);
+                returnDateTo.setValue(null);
+            }
+        });
+
+        // Initialize with the return date enabled
+        oneWayFlightCheckbox.setSelected(false);
+    }
+
+    private void createFirstPassengerForm() {
+        int firstPassengerNumber = passengerDataContainer.getChildren().size();
+        HBox firstPassengerPreferences = createPassengerPreferencesControls(firstPassengerNumber);
+        preferencesContainer.getChildren().add(firstPassengerPreferences);
     }
 
     @FXML
@@ -65,11 +105,36 @@ public class ReservationController {
                 "New York - Trst, 19.10.2024 at 20:30 - Cena: $365"
         );
     }
+    private HBox createPassengerPreferencesControls(int passengerNumber) {
+        HBox hbox = new HBox(10); // Horizontal spacing between elements
+
+        hbox.getChildren().add(new Label("Potnik " + passengerNumber + ":"));
+
+        ComboBox<String> seatSelection = new ComboBox<>();
+        seatSelection.getItems().addAll("1A", "1B", "1C", "2A", "2B", "2C", "3A", "3B", "3C");
+        hbox.getChildren().add(new Label("Sedež:"));
+        hbox.getChildren().add(seatSelection);
+
+        ComboBox<String> foodSelection = new ComboBox<>();
+        foodSelection.getItems().addAll("Brez omejitev", "Vegetarijanska", "Veganska");
+        hbox.getChildren().add(new Label("Hrana:"));
+        hbox.getChildren().add(foodSelection);
+
+        CheckBox extraLuggageCheckbox = new CheckBox("Dodatna Prtljaga");
+        hbox.getChildren().add(extraLuggageCheckbox);
+
+        return hbox;
+    }
+
+
 
     @FXML
     private void addNewPassengerForm(ActionEvent event) {
         GridPane passengerForm = createPassengerForm();
         passengerDataContainer.getChildren().add(passengerForm);
+        int passengerNumber = passengerDataContainer.getChildren().size();
+        HBox passengerPreferences = createPassengerPreferencesControls(passengerNumber);
+        preferencesContainer.getChildren().add(passengerPreferences);
     }
 
     private GridPane createPassengerForm() {
