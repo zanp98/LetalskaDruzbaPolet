@@ -4,44 +4,89 @@
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import org.controlsfx.control.*?>
 
-<VBox alignment="TOP_CENTER" prefHeight="865.0" prefWidth="926.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.letalskadruzbapolet.ReservationController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
+<VBox alignment="TOP_CENTER" prefHeight="865.0" prefWidth="926.0" spacing="20.0"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.letalskadruzbapolet.ReservationController">
+    <MenuBar useSystemMenuBar="true">
+        <Menu text="Datoteka">
+            <MenuItem text="Odpri..."/>
+            <MenuItem text="Shrani"/>
+            <MenuItem text="Izhod"/>
+        </Menu>
+        <Menu text="Uredi">
+            <MenuItem text="Razveljavi"/>
+            <MenuItem text="Ponovi"/>
+            <MenuItem text="Izreži"/>
+            <MenuItem text="Kopiraj"/>
+            <MenuItem text="Prilepi"/>
+        </Menu>
+        <Menu text="Pogled">
+            <MenuItem text="Povečaj"/>
+            <MenuItem text="Pomanjšaj"/>
+        </Menu>
+        <Menu text="Okno">
+            <MenuItem text="Minimiziraj"/>
+            <MenuItem text="Polna velikost"/>
+        </Menu>
+        <Menu text="Pomoč">
+            <MenuItem text="Dokumentacija"/>
+            <MenuItem text="O aplikaciji"/>
+        </Menu>
+    </MenuBar>
     <ScrollPane fitToHeight="true" fitToWidth="true">
         <VBox alignment="TOP_CENTER" spacing="20.0">
             <VBox spacing="10">
-                <Label text="Podatki o potnikih">
-                    <font>
-                        <Font name="System Bold" size="15.0" />
-                    </font>
-                </Label>
-                <ScrollPane fitToHeight="true" fitToWidth="false" hbarPolicy="AS_NEEDED" prefHeight="378.0" prefWidth="884.0" vbarPolicy="NEVER">
+
+                <HBox>
+                    <children>
+                        <Label text="Podatki o potnikih">
+                            <font>
+                                <Font name="System Bold" size="15.0"/>
+                            </font>
+                        </Label>
+                        <Button style="-fx-background-color: transparent; -fx-padding: 2;">
+                            <graphic>
+                                <ImageView fitHeight="16" fitWidth="16">
+                                    <Image url="@images/icons8-info-50.png"/> <!-- Replace with your icon's path -->
+                                </ImageView>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip
+                                        text="Izpolnite podatke o potnikih, klknite Dodaj, če želite dodati več potnikov."/>
+                            </tooltip>
+                        </Button>
+                    </children>
+                </HBox>
+                <ScrollPane fitToHeight="true" fitToWidth="false" hbarPolicy="AS_NEEDED" prefHeight="378.0"
+                            prefWidth="884.0" vbarPolicy="NEVER">
                     <HBox fx:id="passengerDataContainer" spacing="10">
                         <GridPane hgap="10" maxWidth="1.7976931348623157E308" vgap="10">
-                            <TextField fx:id="nameField" promptText="Ime" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                            <TextField fx:id="surnameField" promptText="Priimek" GridPane.rowIndex="1" />
-                            <TextField fx:id="idNumberField" promptText="Št. osebnega dokumenta" GridPane.rowIndex="2" />
-                            <TextField fx:id="addressField" promptText="Naslov" GridPane.rowIndex="3" />
-                            <TextField fx:id="postalField" promptText="Pošta" GridPane.rowIndex="4" />
-                            <TextField fx:id="cityField" promptText="Mesto" GridPane.rowIndex="5" />
-                            <Button onAction="#addNewPassengerForm" text="Dodaj" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="1" />
+                            <TextField fx:id="nameField" promptText="Ime" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="0"/>
+                            <TextField fx:id="surnameField" promptText="Priimek" GridPane.rowIndex="1"/>
+                            <TextField fx:id="idNumberField" promptText="Št. osebnega dokumenta" GridPane.rowIndex="2"/>
+                            <TextField fx:id="addressField" promptText="Naslov" GridPane.rowIndex="3"/>
+                            <TextField fx:id="postalField" promptText="Pošta" GridPane.rowIndex="4"/>
+                            <TextField fx:id="cityField" promptText="Mesto" GridPane.rowIndex="5"/>
+                            <Button onAction="#addNewPassengerForm" text="Dodaj" GridPane.columnIndex="2"
+                                    GridPane.rowIndex="2" GridPane.rowSpan="1"/>
                             <columnConstraints>
-                                <ColumnConstraints />
-                                <ColumnConstraints />
-                                <ColumnConstraints />
+                                <ColumnConstraints/>
+                                <ColumnConstraints/>
+                                <ColumnConstraints/>
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
                             </rowConstraints>
                         </GridPane>
                     </HBox>
@@ -50,67 +95,108 @@
             <VBox spacing="10">
                 <Label text="Iskanje letov">
                     <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="System Bold" size="15.0"/>
                     </font>
                 </Label>
-                <HBox spacing="10" />
-                <GridPane centerShape="false" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" vgap="25.0">
+                <HBox spacing="10"/>
+                <GridPane centerShape="false" hgap="10" maxHeight="-Infinity" maxWidth="1.7976931348623157E308"
+                          vgap="25.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.5" minWidth="10.0" prefWidth="276.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.5" minWidth="10.0" prefWidth="276.5"/>
                     </columnConstraints>
                     <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
 
-                        <Label text="Odhod letališče/mesto:" GridPane.rowIndex="1" />
-                        <CheckComboBox fx:id="departureCities" prefHeight="100.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" /> <!-- Spanning across 4 columns starting from column 1 -->
+                        <Label text="Odhod letališče/mesto" GridPane.rowIndex="1"/>
+                        <CheckComboBox fx:id="departureCities" prefHeight="100.0" prefWidth="150.0"
+                                       GridPane.columnIndex="1" GridPane.columnSpan="3"
+                                       GridPane.rowIndex="1"/> <!-- Spanning across 4 columns starting from column 1 -->
 
-                        <Label text="Prihod letališče/mesto:" GridPane.rowIndex="2" />
+                        <Label text="Prihod letališče/mesto" GridPane.rowIndex="2"/>
 
-                        <ComboBox fx:id="destinationCity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="destinationCity" prefWidth="150.0" GridPane.columnIndex="1"
+                                  GridPane.columnSpan="3" GridPane.rowIndex="2"/>
 
                         <!-- Departure Date Selection -->
-                        <Label fx:id="departureLabel" text="Datum odhoda:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <CheckBox fx:id="fixedDepartureDateCheckbox" text="Fiksni datum" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-                        <DatePicker fx:id="departureDateFrom" promptText="Začetni datum" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <DatePicker fx:id="departureDateTo" promptText="Končni datum" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label fx:id="departureLabel" text="Datum odhoda" GridPane.rowIndex="3"/>
+                        <CheckBox fx:id="fixedDepartureDateCheckbox" text="Fiksni datum" GridPane.columnIndex="1"
+                                  GridPane.halignment="LEFT" GridPane.rowIndex="3"/>
+                        <DatePicker fx:id="departureDateFrom" promptText="Začetni datum" GridPane.columnIndex="2"
+                                    GridPane.rowIndex="3"/>
+                        <DatePicker fx:id="departureDateTo" promptText="Končni datum" GridPane.columnIndex="3"
+                                    GridPane.rowIndex="3"/>
 
-                        <Label fx:id="returnLabel" text="Datum prihoda:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                        <CheckBox fx:id="fixedReturnDateCheckbox" text="Fiksni datum" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
-                        <DatePicker fx:id="returnDateFrom" promptText="Začetni datum" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <DatePicker fx:id="returnDateTo" promptText="Končni datum" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                       <CheckBox fx:id="oneWayFlightCheckbox" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
-                  <Label text="Enosmerna pot" />
+                        <Label fx:id="returnLabel" text="Datum prihoda" GridPane.rowIndex="4"/>
+                        <CheckBox fx:id="fixedReturnDateCheckbox" text="Fiksni datum" GridPane.columnIndex="1"
+                                  GridPane.halignment="LEFT" GridPane.rowIndex="4"/>
+                        <DatePicker fx:id="returnDateFrom" promptText="Začetni datum" GridPane.columnIndex="2"
+                                    GridPane.rowIndex="4"/>
+                        <DatePicker fx:id="returnDateTo" promptText="Končni datum" GridPane.columnIndex="3"
+                                    GridPane.rowIndex="4"/>
+                        <CheckBox fx:id="oneWayFlightCheckbox" GridPane.columnIndex="1" GridPane.halignment="LEFT"/>
+                        <HBox>
+                            <children>
+                                <Label text="Enosmerna pot">
+                                    <HBox.margin>
+                                        <Insets right="5.0"/>
+                                    </HBox.margin>
+                                </Label>
+                                <Button style="-fx-background-color: transparent; -fx-padding: 2;">
+                                    <graphic>
+                                        <ImageView fitHeight="16" fitWidth="16">
+                                            <Image url="@images/icons8-info-50.png"/> <!-- Replace with your icon's path -->
+                                        </ImageView>
+                                    </graphic>
+                                    <tooltip>
+                                        <Tooltip
+                                                text="Obkljukajte, če želite izbrati samo enosmerni let, brez povratnega."/>
+                                    </tooltip>
+                                </Button>
+                            </children>
+                        </HBox>
 
                     </children>
                 </GridPane>
-                <Button fx:id="searchFlightsButton" onAction="#searchFlights" text="Išči" />
+                <Button fx:id="searchFlightsButton" onAction="#searchFlights" prefHeight="26.0" prefWidth="84.0"
+                        text="Išči">
+                    <VBox.margin>
+                        <Insets top="5.0"/>
+                    </VBox.margin>
+                </Button>
+                <ProgressIndicator fx:id="searchLoader" visible="false" />
             </VBox>
             <SplitPane dividerPositions="0.5" orientation="HORIZONTAL" prefHeight="255.0" prefWidth="884.0">
                 <items>
                     <VBox spacing="10">
                         <Label text="Rezultati Odhodnih Letov">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="15.0"/>
                             </font>
                         </Label>
-                        <ListView fx:id="departureFlightsList" />
+                        <StackPane>
+                            <ListView fx:id="departureFlightsList"/>
+                            <ProgressIndicator fx:id="departureLoader" visible="false"/>
+                        </StackPane>
                     </VBox>
                     <VBox spacing="10">
                         <Label text="Rezultati Povratnih Letov">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="15.0"/>
                             </font>
                         </Label>
-                        <ListView fx:id="returnFlightsList" />
+                        <StackPane>
+                            <ListView fx:id="returnFlightsList" />
+                            <ProgressIndicator fx:id="returnLoader" visible="false" />
+                        </StackPane>
                     </VBox>
                 </items>
             </SplitPane>
@@ -119,75 +205,95 @@
                     <VBox spacing="10" HBox.hgrow="NEVER">
                         <Label text="Dodatni podatki">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="15.0"/>
                             </font>
                         </Label>
                         <VBox fx:id="preferencesContainer">
                             <!-- Passenger preferences will be added here -->
                         </VBox>
+                        <HBox.margin>
+                            <Insets right="5.0" top="5.0"/>
+                        </HBox.margin>
                     </VBox>
 
-                    <Region HBox.hgrow="ALWAYS" />
+                    <Region HBox.hgrow="ALWAYS"/>
 
                     <VBox spacing="10" HBox.hgrow="ALWAYS">
                         <Label alignment="TOP_LEFT" text="Podatki o plačilu">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="15.0"/>
                             </font>
                         </Label>
-                        <GridPane hgap="10" prefHeight="134.0" prefWidth="117.0" vgap="10" HBox.hgrow="ALWAYS">
+                        <GridPane hgap="10" prefHeight="134.0" prefWidth="0.0" vgap="10" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label text="E-mail:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                <Label text="Kreditna kartica:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <TextField fx:id="creditCardField" onAction="#handleCreditCardInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label text="Datum veljavnosti:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <Label text="E-pošta" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                <Label text="Številka kreditne kartice" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="creditCardField" onAction="#handleCreditCardInput"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                <Label text="Datum veljavnosti" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                                 <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <ComboBox fx:id="expiryMonth" prefWidth="80">
                                         <items>
                                             <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="01" />
-                                                <String fx:value="02" />
-                                                <String fx:value="03" />
-                                                <String fx:value="04" />
-                                                <String fx:value="05" />
-                                                <String fx:value="06" />
-                                                <String fx:value="07" />
-                                                <String fx:value="08" />
-                                                <String fx:value="09" />
-                                                <String fx:value="10" />
-                                                <String fx:value="11" />
-                                                <String fx:value="12" />
+                                                <String fx:value="01"/>
+                                                <String fx:value="02"/>
+                                                <String fx:value="03"/>
+                                                <String fx:value="04"/>
+                                                <String fx:value="05"/>
+                                                <String fx:value="06"/>
+                                                <String fx:value="07"/>
+                                                <String fx:value="08"/>
+                                                <String fx:value="09"/>
+                                                <String fx:value="10"/>
+                                                <String fx:value="11"/>
+                                                <String fx:value="12"/>
                                             </FXCollections>
                                         </items>
                                     </ComboBox>
-                                    <Label text="/" />
+                                    <Label text="/"/>
                                     <ComboBox fx:id="expiryYear" prefWidth="80">
                                         <items>
                                             <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="2024" />
-                                                <String fx:value="2025" />
-                                                <String fx:value="2026" />
-                                                <String fx:value="2027" />
-                                                <String fx:value="2028" />
-                                                <String fx:value="2029" />
-                                                <String fx:value="2030" />
+                                                <String fx:value="2024"/>
+                                                <String fx:value="2025"/>
+                                                <String fx:value="2026"/>
+                                                <String fx:value="2027"/>
+                                                <String fx:value="2028"/>
+                                                <String fx:value="2029"/>
+                                                <String fx:value="2030"/>
                                             </FXCollections>
                                         </items>
                                     </ComboBox>
                                 </HBox>
-                                <Label text="Varnostna koda:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                                <PasswordField fx:id="securityCodeField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                    <Label text="Varnostna koda"/>
+                                    <Button style="-fx-background-color: transparent; -fx-padding: 2;">
+                                        <graphic>
+                                            <ImageView fitHeight="16" fitWidth="16">
+                                                <Image url="@images/icons8-info-50.png"/> <!-- Replace with your icon's path -->
+                                            </ImageView>
+                                        </graphic>
+                                        <tooltip>
+                                            <Tooltip text="Tri-mestna koda na hrbtni strani vaše kreditne kartice."/>
+                                        </tooltip>
+                                    </Button>
+                                </HBox>
+                                <PasswordField fx:id="securityCodeField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <tooltip>
+                                        <Tooltip text="Tri-mestna koda na hrbtni strani vaše kreditne kartice."/>
+                                    </tooltip>
+                                </PasswordField>
                             </children>
                             <columnConstraints>
-                                <ColumnConstraints />
-                                <ColumnConstraints />
+                                <ColumnConstraints/>
+                                <ColumnConstraints/>
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
-                                <RowConstraints />
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
+                                <RowConstraints/>
                             </rowConstraints>
                         </GridPane>
                     </VBox>
@@ -197,7 +303,11 @@
     </ScrollPane>
     <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-            <Button fx:id="save" mnemonicParsing="false" onAction="#finalizeBooking" text="Shrani" />
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#cancelBooking" text="Prekliči"/>
+            <Button fx:id="save" mnemonicParsing="false" onAction="#finalizeBooking" text="Shrani"/>
         </buttons>
     </ButtonBar>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
 </VBox>

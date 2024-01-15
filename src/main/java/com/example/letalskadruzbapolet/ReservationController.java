@@ -1,7 +1,9 @@
 package com.example.letalskadruzbapolet;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -47,6 +49,12 @@ public class ReservationController {
     private Label departureLabel, returnLabel;
     @FXML
     private CheckBox oneWayFlightCheckbox, returnFlightCheckbox;
+    @FXML
+    private ProgressIndicator searchLoader;
+    @FXML
+    private ProgressIndicator departureLoader;
+    @FXML
+    private ProgressIndicator returnLoader;
 
     @FXML
     private void initialize() {
@@ -92,17 +100,48 @@ public class ReservationController {
         departureFlightsList.getItems().clear();
         returnFlightsList.getItems().clear();
 
+        // Show the loader
+        searchLoader.setVisible(true);
+        departureLoader.setVisible(true);
+        returnLoader.setVisible(true);
+
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                // Simulate a long-running task
+                Thread.sleep(2000);
+
+                // Update UI after search is done, you need to run this on the JavaFX Application Thread
+                Platform.runLater(() -> {
+                    departureLoader.setVisible(false);
+                    returnLoader.setVisible(false);
+                    searchLoader.setVisible(false);
+
+                    // Populate the lists with results
+                    departureFlightsList.getItems().addAll(/* ... flight data ... */);
+                    returnFlightsList.getItems().addAll(/* ... flight data ... */);
+                });
+
+                return null;
+            }
+        };
+
+        // Run the task on a background thread
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+
         departureFlightsList.getItems().addAll(
-                "Benetke - New York, 12.10.2024 at 08:00 - Cena: $300",
-                "Trst - New York, 13.10.2024 at 09:30 - Cena: $350",
-                "Trst - New York, 11.10.2024 at 09:30 - Cena: $360"
+                "Benetke - New York, 12.10.2024 08:00 - Cena: $300",
+                "Trst - New York, 13.10.2024 09:30 - Cena: $350",
+                "Trst - New York, 11.10.2024 09:30 - Cena: $360"
         );
 
         returnFlightsList.getItems().addAll(
                 "New York - Benetke, 17.10.2024 at 19:00 - Cena: $280",
-                "New York - Trst, 18.10.2024 at 20:30 - Cena: $330",
-                "New York - Trst, 16.10.2024 at 20:30 - Cena: $230",
-                "New York - Trst, 19.10.2024 at 20:30 - Cena: $365"
+                "New York - Trst, 18.10.2024 20:30 - Cena: $330",
+                "New York - Trst, 16.10.2024 20:30 - Cena: $230",
+                "New York - Trst, 19.10.2024 20:30 - Cena: $365"
         );
     }
     private HBox createPassengerPreferencesControls(int passengerNumber) {
@@ -195,9 +234,9 @@ public class ReservationController {
         String paymentDetails = collectPaymentDetails();
 
         // Combine details into a summary
-        String bookingSummary = "Passenger Details:\n" + passengerDetails
-                + "\n\nFlight Details:\n" + flightDetails
-                + "\n\nPayment Details:\n" + paymentDetails;
+        String bookingSummary = "Podatki o potnikih:\n" + passengerDetails
+                + "\n\nPodatki o letih:\n" + flightDetails
+                + "\n\nPlačilo:\n" + paymentDetails;
 
         // Show confirmation dialog
         showConfirmationDialog(bookingSummary);
@@ -205,24 +244,42 @@ public class ReservationController {
 
     private String collectPassengerDetails() {
         // Implement logic to collect passenger details
-        return "John Doe, ID: 12345"; // Placeholder
+        return """
+                Ime in priimek: Janko Kajuh
+                Št. potnega lista: PB0050052
+                Naslov: Srednjekranjski cesti 31, 2463 Modrozob
+
+                Ime in priimek: Janja Ratko
+                Št. potnega lista: PB0050052
+                Naslov: Srednjekranjski cesti 31, 2463 Modrozob"""; // Placeholder
     }
 
     private String collectFlightDetails() {
         // Implement logic to collect flight details
-        return "Flight: XYZ123, Departure: City A, Arrival: City B"; // Placeholder
+        return "Let: Benetke - New York, 12.10.2024 08:00";
     }
 
     private String collectPaymentDetails() {
         // Implement logic to collect payment details
-        return "Card ending in 1234, Expiry: 12/24"; // Placeholder
+        return "Kreditna kartica, ki se konča z 1234, Potek veljavnosti: 12/24";
     }
 
     private void showConfirmationDialog(String bookingSummary) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Booking Confirmation");
-        alert.setHeaderText("Please confirm your booking details:");
+        alert.setTitle("Potrditev rezervacije");
+        alert.setHeaderText("Prosim potrdite rezervacijo:");
         alert.setContentText(bookingSummary);
+
+        // Show the dialog and wait for response
+        alert.showAndWait();
+        // You can add more logic based on user response
+    }
+
+    @FXML
+    private void cancelBooking() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Preklic");
+        alert.setHeaderText("Vpisani se ne bodo shranili. Ste prepričani, da želite preklicati?");
 
         // Show the dialog and wait for response
         alert.showAndWait();
